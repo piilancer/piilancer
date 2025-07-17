@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piilancer: Ruang Kreasi Pelajar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Pacifico (for logo) and Montserrat (for hero heading) -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font for a modern look */
+        body {
+            font-family: "Inter", sans-serif;
+        }
+        /* Custom blue color for Tailwind */
+        .bg-custom-blue {
+            background-color: #8aceff;
+        }
+        .text-custom-blue {
+            color: #8aceff;
+        }
+        .hover\\:bg-custom-blue-light:hover {
+            background-color: #e0f2ff; /* A lighter shade for hover effects */
+        }
+        .hover\\:text-custom-blue-dark:hover {
+            color: #007bff; /* A slightly darker blue for hover text */
+        }
+        .focus\\:ring-custom-blue-focus:focus {
+            --tw-ring-color: #8aceff;
+        }
+        /* Style for Piilancer logo font */
+        .piilancer-logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem; /* Reduced from 2.5rem */
+            line-height: 1;
+        }
+        /* Style for Hero Section Heading font */
+        .hero-heading-font {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Custom animation for hero text */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        .animate-fadeInScale {
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        /* Subtle background pattern for hero */
+        .hero-pattern {
+            background-image: radial-gradient(circle at center, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        /* CSS for Latest Posts Hover Effect */
+        /* Only the hovered card will have the effect */
+        .post-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .post-card:hover {
+            transform: translateY(-8px); /* Lift effect */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Stronger shadow */
+            border-color: #3b82f6; /* Blue border on hover */
+        }
+        .post-card:hover .post-image {
+            transform: scale(1.05); /* Slightly scale image on hover */
+        }
+        .post-card:hover .post-title {
+            color: #007bff; /* Darker blue for title on hover */
+        }
+        .post-card:hover .read-more-arrow {
+            transform: translateX(4px); /* Move arrow on hover */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header Section -->
+        <header class="bg-white shadow-md py-4">
+            <div class="container mx-auto px-4 flex justify-between items-center">
+                <a href="homepage-template.html" class="piilancer-logo text-blue-600 rounded-lg p-2 hover:bg-blue-50 transition duration-300">Piilancer</a>
+                <nav class="hidden md:flex space-x-6 items-center">
+                    <a href="baca-blog-page.html" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300 rounded-lg px-3 py-2 hover:bg-gray-100">Baca Blog</a>
+                    <a href="tulis-blog-page.html" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300 rounded-lg px-3 py-2 hover:bg-gray-100">Tulis Blog</a>
+                    <a href="kedai-pelajar-page.html" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300 rounded-lg px-3 py-2 hover:bg-gray-100">Kedai Pelajar</a>
+                    <a href="tentang-page.html" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300 rounded-lg px-3 py-2 hover:bg-gray-100">Tentang</a>
+                    
+                    <!-- Profile Picture / Auth Menu -->
+                    <div class="relative ml-4">
+                        <button id="profile-menu-button" class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-200 text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                            <img id="profile-pic" src="https://placehold.co/40x40/cbd5e1/4a5568?text=U" alt="User Profile" class="rounded-full w-full h-full object-cover hidden">
+                            <svg id="profile-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12 4a4 4 0 100 8 4 4 0 000-8zm-2 9a4 4 0 00-4 4v1a2 2 0 002 2h8a2 2 0 002-2v-1a4 4 0 00-4-4h-4z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div id="profile-menu" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden">
+                            <a href="auth-page.html" id="login-signup-link" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login / Daftar</a>
+                            <a href="#" id="my-profile-link" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hidden">Profil Saya</a>
+                            <button id="logout-button" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 hidden">Logout</button>
+                        </div>
+                    </div>
+                </nav>
+                <!-- Mobile Menu Button (Hamburger) -->
+                <button class="md:hidden text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-2">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-grow">
+            <section class="bg-gradient-to-br from-[#8aceff] via-blue-400 to-blue-700 text-white py-20 md:py-32 flex items-center justify-center relative overflow-hidden">
+                <div class="hero-pattern"></div>
+                <div class="container mx-auto px-4 text-center relative z-10">
+                    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 rounded-lg p-2 bg-white bg-opacity-10 inline-block hero-heading-font animate-fadeInScale" style="animation-delay: 0.2s;">
+                        Piilancer: Ruang Kreasi & Inspirasi Pelajar
+                    </h1>
+                    <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90 animate-fadeInScale" style="animation-delay: 0.4s;">
+                        Piilancer adalah platform blog untuk pelajar. Bagikan ide, cerita, dan pengetahuanmu dengan teman-teman se-Indonesia!
+                    </p>
+                    <a href="tulis-blog-page.html" class="bg-white text-blue-700 hover:bg-blue-100 px-8 py-4 rounded-full font-bold text-lg shadow-xl transition duration-300 transform hover:scale-105 animate-fadeInScale" style="animation-delay: 0.6s;">
+                        Mulai Menulis
+                    </a>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">Fitur Unggulan Piilancer</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Feature 1: Ekspresikan Dirimu -->
+                        <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hover:bg-gray-100">
+                            <div class="text-blue-500 mb-4">
+                                <svg class="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center mb-3 text-gray-900">Ekspresikan Dirimu</h3>
+                            <p class="text-gray-600 text-center">
+                                Tulis dan bagikan pemikiran, hobi, atau pelajaran sekolah dengan mudah. Bebas berekspresi!
+                            </p>
+                        </div>
+                        <!-- Feature 2: Desain Mudah Digunakan -->
+                        <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hover:bg-gray-100">
+                            <div class="text-blue-500 mb-4">
+                                <svg class="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9.25 17C8.5 17 8 16.5 8 15.75V8.25C8 7.5 8.5 7 9.25 7H9.75C10.5 7 11 7.5 11 8.25V15.75C11 16.5 10.5 17 9.75 17ZM14.75 17L14.25 17C13.5 17 13 16.5 13 15.75V8.25C13 7.5 13.5 7 14.25 7H14.75C15.5 7 16 7.5 16 8.25V15.75C16 16.5 15.5 17 14.75 17Z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center mb-3 text-gray-900">Desain Mudah Digunakan</h3>
+                            <p class="text-gray-600 text-center">
+                                Antarmuka yang sederhana membuat pengalaman bloggingmu jadi lebih menyenangkan dan tidak ribet.
+                            </p>
+                        </div>
+                        <!-- Feature 3: Temukan Inspirasi Baru -->
+                        <div class="bg-gray-50 p-8 rounded-xl shadow-lg border border-gray-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-2 hover:bg-gray-100">
+                            <div class="text-blue-500 mb-4">
+                                <svg class="w-10 h-10 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 12v6a2 2 0 002 2h10a2 2 0 002-2v-6"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center mb-3 text-gray-900">Temukan Inspirasi Baru</h3>
+                            <p class="text-gray-600 text-center">
+                                Baca tulisan teman-temanmu, dapatkan ide-ide baru, dan perluas wawasanmu setiap hari.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Latest Posts Section -->
+            <section class="py-16 bg-white">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-900">Postingan Terbaru</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Example Post 1 -->
+                        <div class="post-card bg-gray-50 p-6 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden">
+                            <img src="https://placehold.co/400x250/b0e0e6/333333?text=Kreativitas+Tanpa+Batas" alt="Kreativitas Tanpa Batas" class="rounded-lg mb-4 w-full h-48 object-cover post-image transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/333333?text=Default+Image';">
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2 post-title transition duration-300">Mengembangkan Ide Kreatif Setiap Hari</h3>
+                            <p class="text-gray-600 text-sm mb-3">Oleh: Inspirator Muda | 17 Juli 2025</p>
+                            <p class="text-gray-700 mb-4 line-clamp-3">
+                                Menulis adalah perjalanan. Temukan cara-cara baru untuk memicu ide-ide brilian dan mengubahnya menjadi tulisan yang memukau. Dari brainstorming hingga journaling, setiap langkah adalah peluang untuk berkreasi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </p>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center space-x-1">
+                                <span>Baca Selengkapnya</span>
+                                <svg class="w-4 h-4 read-more-arrow transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                        <!-- Example Post 2 -->
+                        <div class="post-card bg-gray-50 p-6 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden">
+                            <img src="https://placehold.co/400x250/87ceeb/333333?text=Belajar+Seru" alt="Belajar Seru" class="rounded-lg mb-4 w-full h-48 object-cover post-image transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/333333?text=Default+Image';">
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2 post-title transition duration-300">Rahasia Belajar Asyik dan Efektif</h3>
+                            <p class="text-gray-600 text-sm mb-3">Oleh: Pelajar Cerdas | 16 Juli 2025</p>
+                            <p class="text-gray-700 mb-4 line-clamp-3">
+                                Ujian tidak perlu menakutkan! Temukan metode belajar yang tidak hanya efektif tapi juga menyenangkan. Dari membuat catatan visual hingga belajar kelompok yang produktif. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </p>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center space-x-1">
+                                <span>Baca Selengkapnya</span>
+                                <svg class="w-4 h-4 read-more-arrow transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                        <!-- Example Post 3 -->
+                        <div class="post-card bg-gray-50 p-6 rounded-xl shadow-lg border border-gray-100 relative overflow-hidden">
+                            <img src="https://placehold.co/400x250/add8e6/333333?text=Komunitas+Aktif" alt="Komunitas Aktif" class="rounded-lg mb-4 w-full h-48 object-cover post-image transition duration-300" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/333333?text=Default+Image';">
+                            <h3 class="text-xl font-semibold text-blue-700 mb-2 post-title transition duration-300">Bergabung dengan Komunitas Penulis Piilancer</h3>
+                            <p class="text-gray-600 text-sm mb-3">Oleh: Admin Piilancer | 15 Juli 2025</p>
+                            <p class="text-gray-700 mb-4 line-clamp-3">
+                                Jangan menulis sendiri! Piilancer adalah tempat terbaik untuk terhubung dengan sesama pelajar yang punya minat menulis. Dapatkan feedback, kolaborasi, dan inspirasi. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id laborum.
+                            </p>
+                            <a href="#" class="text-blue-600 hover:text-blue-800 font-medium flex items-center space-x-1">
+                                <span>Baca Selengkapnya</span>
+                                <svg class="w-4 h-4 read-more-arrow transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-center mt-12">
+                        <a href="baca-blog-page.html" class="bg-blue-600 text-white hover:bg-blue-700 px-8 py-4 rounded-full font-semibold shadow-xl transition duration-300 transform hover:scale-105">
+                            Lihat Semua Postingan
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="py-16 bg-gray-100">
+                <div class="container mx-auto px-4 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-8 text-gray-900">Tentang Piilancer</h2>
+                    <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+                        Piilancer adalah platform blog untuk pelajar. Kami percaya setiap pelajar punya cerita dan ide yang layak dibagikan. Mari bersama-sama membangun komunitas penulis muda yang inspiratif!
+                    </p>
+                    <a href="tentang-page.html" class="bg-blue-600 text-white hover:bg-blue-700 px-6 py-3 rounded-full font-semibold shadow-xl transition duration-300 transform hover:scale-105">
+                        Gabung Sekarang
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer Section (Consistent with Homepage) -->
+        <footer class="bg-gray-800 text-white py-8">
+            <div class="container mx-auto px-4 text-center">
+                <p class="text-gray-400">&copy; 2025 Piilancer. All rights reserved.</p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <a href="https://instagram.com/piilancer" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition duration-300 rounded-lg p-2 hover:bg-gray-700 flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.315 2.411a.75.75 0 01.597.953l-1.39 4.364 7.26 2.253a.75.75 0 01.385 1.487l-7.26 2.253 1.39 4.364a.75.75 0 01-1.35.43l-1.39-4.364-7.26 2.253a.75.75 0 01-.385-1.487l7.26-2.253-1.39-4.364a.75.75 0 01.75-.43zM12 0a12 12 0 100 24 12 12 0 000-24z" clip-rule="evenodd" />
+                        </svg>
+                        <span>@piilancer</span>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 rounded-lg p-2 hover:bg-gray-700">Kebijakan Privasi</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300 rounded-lg p-2 hover:bg-gray-700">Ketentuan Layanan</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Firebase SDK CDN -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // --- START LOCAL DEVELOPMENT CONFIG (UNCOMMENT AND FILL FOR LOCAL TESTING) ---
+        /*
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+            // measurementId: "YOUR_MEASUREMENT_ID" // Optional
+        };
+        const appId = "YOUR_PROJECT_ID"; // Or any unique ID for your local testing
+        */
+        // --- END LOCAL DEVELOPMENT CONFIG ---
+
+        // Firebase configuration (provided by Canvas environment, or use local config above)
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Fallback for local testing
+
+        let app;
+        let auth;
+
+        // Get elements
+        const profileMenuButton = document.getElementById('profile-menu-button');
+        const profileMenu = document.getElementById('profile-menu');
+        const profilePic = document.getElementById('profile-pic');
+        const profileIcon = document.getElementById('profile-icon');
+        const loginSignupLink = document.getElementById('login-signup-link');
+        const myProfileLink = document.getElementById('my-profile-link');
+        const logoutButton = document.getElementById('logout-button');
+
+        // Custom message display function (replaces alert)
+        function displayCustomMessage(message, type = 'success') {
+            console.log(`UI Message (${type}): ${message}`); // Log to console
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `fixed top-4 right-4 z-50 p-4 rounded-md shadow-lg text-white ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+            messageDiv.textContent = message;
+            document.body.appendChild(messageDiv);
+            setTimeout(() => {
+                messageDiv.remove();
+            }, 3000);
+        }
+
+        // Initialize Firebase on window load
+        window.onload = () => {
+            try {
+                if (Object.keys(firebaseConfig).length > 0) {
+                    app = initializeApp(firebaseConfig);
+                    auth = getAuth(app);
+                    console.log("Firebase app initialized on homepage:", app);
+                    console.log("Firebase auth object on homepage:", auth);
+
+                    // Listen for auth state changes immediately after init
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            console.log("Auth State Changed on homepage: User is logged in.", user.uid);
+                            profileIcon.classList.add('hidden');
+                            profilePic.classList.remove('hidden');
+                            if (user.photoURL) {
+                                profilePic.src = user.photoURL;
+                            } else {
+                                const initial = user.displayName ? user.displayName.charAt(0).toUpperCase() : (user.email ? user.email.charAt(0).toUpperCase() : 'U');
+                                profilePic.src = `https://placehold.co/40x40/cbd5e1/4a5568?text=${initial}`;
+                            }
+                            loginSignupLink.classList.add('hidden');
+                            myProfileLink.classList.remove('hidden');
+                            logoutButton.classList.remove('hidden');
+                        } else {
+                            console.log("Auth State Changed on homepage: User is logged out.");
+                            profileIcon.classList.remove('hidden');
+                            profilePic.classList.add('hidden');
+                            loginSignupLink.classList.remove('hidden');
+                            myProfileLink.classList.add('hidden');
+                            logoutButton.classList.add('hidden');
+                        }
+                    });
+                } else {
+                    console.error("Firebase config is empty or missing on homepage. Header auth features will not work.");
+                    displayCustomMessage('Firebase config tidak ditemukan. Fitur otentikasi tidak akan berfungsi.', 'error');
+                }
+            } catch (error) {
+                console.error("Error initializing Firebase on homepage:", error);
+                displayCustomMessage(`Error inisialisasi Firebase: ${error.message}`, 'error');
+            }
+        };
+
+        // Toggle profile menu visibility
+        profileMenuButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from bubbling to window
+            profileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu if clicked outside
+        window.addEventListener('click', (event) => {
+            if (!profileMenuButton.contains(event.target) && !profileMenu.contains(event.target)) {
+                profileMenu.classList.add('hidden');
+            }
+        });
+
+        // Handle logout
+        logoutButton.addEventListener('click', async () => {
+            if (!auth) {
+                displayCustomMessage('Firebase Auth belum diinisialisasi.', 'error');
+                console.error('Logout failed: Firebase Auth not initialized.');
+                return;
+            }
+            try {
+                await signOut(auth);
+                console.log("User logged out successfully from homepage.");
+                displayCustomMessage('Logout berhasil!', 'success');
+                window.location.reload(); // Simple reload to reflect auth state
+            } catch (error) {
+                console.error("Logout Error on homepage:", error);
+                displayCustomMessage('Terjadi kesalahan saat logout. Coba lagi.', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
